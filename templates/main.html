@@ -1,0 +1,33 @@
+<!-- main.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Spreadsheet</title>
+    <link rel="stylesheet" href="../static/main.css">
+</head>
+<body>
+    <div class="spreadsheet-container">
+        <table class="spreadsheet">
+            {% for row_index in range(10) %}
+            <tr>
+                {% for col_index in range(10) %}
+                <td id="cell{{ row_index }}_{{ col_index }}" contenteditable="true">
+                    {% for cell_data in spreadsheet_data %}
+                        {% if cell_data[0] == row_index and cell_data[1] == col_index %}
+                            {{ cell_data[2] }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.1/socket.io.js"></script>
+    <script src="../static/main.js"></script>
+    <button class="save-btn" onclick="saveChanges()">Save</button>
+</body>
+</html>
